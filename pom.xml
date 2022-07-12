@@ -16,20 +16,27 @@
     </properties>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/com.github.instagram4j/instagram4j -->
         <dependency>
             <groupId>com.github.instagram4j</groupId>
             <artifactId>instagram4j</artifactId>
-            <version>2.0.7</version>
+            <version>2.0.4</version>
         </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.5</version>
-        </dependency>
+
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.5</version>
+            <version>1.7.36</version>
         </dependency>
     </dependencies>
     <repositories>
@@ -39,5 +46,7 @@
             <url>https://jitpack.io</url>
         </repository>
     </repositories>
+
+
 
 </project>

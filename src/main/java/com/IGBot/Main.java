@@ -1,19 +1,12 @@
-/*
 package com.IGBot;
 
 import com.github.instagram4j.instagram4j.IGClient;
-import com.github.instagram4j.instagram4j.requests.accounts.AccountsSetBiographyRequest;
-import com.github.instagram4j.instagram4j.requests.commerce.CommerceDestinationRequest;
-import com.github.instagram4j.instagram4j.requests.feed.FeedUserRequest;
-import com.github.instagram4j.instagram4j.requests.friendships.FriendshipsFeedsRequest;
 import com.github.instagram4j.instagram4j.exceptions.IGLoginException;
+import com.github.instagram4j.instagram4j.requests.feed.FeedUserRequest;
 import com.github.instagram4j.instagram4j.requests.users.UsersSearchRequest;
 import com.github.instagram4j.instagram4j.utils.IGChallengeUtils;
-import com.github.instagram4j.instagram4j.IGClient;
-import okhttp3.OkHttpClient;
 import org.apache.log4j.BasicConfigurator;
 
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.concurrent.Callable;
 
@@ -39,13 +32,9 @@ public class Main {
         };
 
         IGClient client = IGClient.builder()
-                .username("natatalkova2")
-                .password("123456Aa")
-                .onTwoFactor(twoFactorHandler)
-                .login();
-        IGClient client = IGClient.builder()
                 .username("natatalkova3")
                 .password("123456Aa")
+                .onTwoFactor(twoFactorHandler)
                 .login();
 
         UsersSearchRequest usersSearchRequest = new UsersSearchRequest("kiraaa3945");
@@ -54,8 +43,7 @@ public class Main {
         FeedUserRequest feedUserRequest = new FeedUserRequest(client.getSelfProfile().getPk());
         System.out.println(feedUserRequest);
 
-
-        InstagramSearchUsernameResult userResult = client.sendRequest(
+/*        InstagramSearchUsernameResult userResult = client.sendRequest(
                 new InstagramSearchUsernameRequest("katy001122"));
         System.out.println(userResult.getUser().username);
 
@@ -79,8 +67,7 @@ public class Main {
             i++;
             sleep(500);
             System.out.println(user.getUsername() + " " + i);
-        }
+        }*/
 
     }
 }
-*/

@@ -1,4 +1,4 @@
-package org.example;
+package com.IGBot;
 
 import com.github.instagram4j.instagram4j.IGClient;
 import com.github.instagram4j.instagram4j.requests.live.LiveCreateRequest;

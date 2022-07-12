@@ -1,27 +1,37 @@
-package org.example;
+package com.IGBot;
 
 import com.github.instagram4j.instagram4j.IGClient;
 import com.github.instagram4j.instagram4j.exceptions.IGLoginException;
+import com.github.instagram4j.instagram4j.requests.users.UsersSearchRequest;
+import com.github.instagram4j.instagram4j.utils.IGChallengeUtils;
 import com.github.instagram4j.instagram4j.utils.IGUtils;
 import kotlin.Pair;
 import org.apache.log4j.BasicConfigurator;
 
 import java.io.File;
 import java.util.Scanner;
+import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
+import java.util.logging.Logger;
 
 public class Application {
+
+    static Logger log = Logger.getLogger(Application.class.getName());
+
     public static void main(String args[]) throws IGLoginException {
         String login = "natatalkova3";
         String password = "123456Aa";
-        //BasicConfigurator.configure(); // configure basic logging output
-        Pair<String, String> pair = args.length >= 2 ? new Pair<>(args[0], args[1]) : new Pair<>("natatalkova3", "123456Aa");
-        IGClient client = login(pair.getFirst(), pair.getSecond());
-        //IGClient client = login(login, password);
 
+        BasicConfigurator.configure(); // configure basic logging output
+        Pair<String, String> pair = args.length >= 2 ? new Pair<>(args[0], args[1]) :
+                                                        new Pair<>(login, password);
+        //IGClient client = login(pair.getFirst(), pair.getSecond());
+        IGClient client = twoFactorLogin(login, password);
+
+        System.out.printf("Logged into %s\n", client.getSelfProfile().getUsername());
         new Application(client).start();
 
-        System.exit(0);
+         System.exit(0);
     }
 
     private final IGClient client;
@@ -58,11 +68,44 @@ public class Application {
 
     }
 
+
+    public static IGClient twoFactorLogin(String login, String password) throws IGLoginException {
+
+        BasicConfigurator.configure();
+
+        Scanner scanner = new Scanner(System.in);
+
+        // Callable that returns inputted code from System.in
+        Callable<String> inputCode = () -> {
+            System.out.print("Please input code: ");
+            return scanner.nextLine();
+        };
+
+        // handler for two factor login
+        IGClient.Builder.LoginHandler twoFactorHandler = (client, response) -> {
+            // included utility to resolve two factor
+            // may specify retries. default is 3
+            return IGChallengeUtils.resolveTwoFactor(client, response, inputCode);
+        };
+
+        IGClient client = IGClient.builder()
+                .username(login)
+                .password(password)
+                .onTwoFactor(twoFactorHandler)
+                .login();
+
+        SerializeUtil.serialize(client.getHttpClient().cookieJar(), new File("igcookies.ser"));
+        SerializeUtil.serialize(client, new File("igclient.ser"));
+
+        System.out.printf("Logged into %s\n", client.getSelfProfile().getUsername());
+
+        return client;
+    }
     public static IGClient login(String username, String password) throws IGLoginException {
         System.out.printf("Logging into %s\n", username);
         IGClient client = getLoggedInIGClient(username, password);
-        System.out.println("Serializing IGClient and cookies");
-        //log.info("Serializing IGClient and cookies");
+        //System.out.println("Serializing IGClient and cookies");
+        log.info("Serializing IGClient and cookies");
         System.out.printf("Logged into %s\n", client.getSelfProfile().getUsername());
 
         // save session
@@ -85,8 +128,8 @@ public class Application {
                 serializedCookies = new File("igcookies.ser");
 
         if (serializedClient.exists() && serializedCookies.exists()) {
-            System.out.println("Found existing serialized info.");
-            //log.info("Found existing serialized info.");
+            //System.out.println("Found existing serialized info.");
+            log.info("Found existing serialized info.");
             try {
                 IGClient deserialized_client = SerializeUtil.getClientFromSerialize(serializedClient, serializedCookies);
 
@@ -106,5 +149,6 @@ public class Application {
                 .password(password)
                 .client(IGUtils.defaultHttpClientBuilder().cookieJar(new SerializableCookieJar()).build())
                 .simulatedLogin();
+                //.login();
     }
 }

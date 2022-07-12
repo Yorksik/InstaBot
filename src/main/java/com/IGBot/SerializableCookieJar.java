@@ -1,4 +1,4 @@
-package org.example;
+package com.IGBot;
 
 import lombok.AllArgsConstructor;
 import okhttp3.Cookie;
