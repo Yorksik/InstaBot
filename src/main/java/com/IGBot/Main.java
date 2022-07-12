@@ -1,3 +1,4 @@
+/*
 package com.IGBot;
 
 import com.github.instagram4j.instagram4j.IGClient;
@@ -8,6 +9,7 @@ import com.github.instagram4j.instagram4j.requests.friendships.FriendshipsFeedsR
 import com.github.instagram4j.instagram4j.exceptions.IGLoginException;
 import com.github.instagram4j.instagram4j.requests.users.UsersSearchRequest;
 import com.github.instagram4j.instagram4j.utils.IGChallengeUtils;
+import com.github.instagram4j.instagram4j.IGClient;
 import okhttp3.OkHttpClient;
 import org.apache.log4j.BasicConfigurator;
 
@@ -41,10 +43,11 @@ public class Main {
                 .password("123456Aa")
                 .onTwoFactor(twoFactorHandler)
                 .login();
-/*        IGClient client = IGClient.builder()
+        IGClient client = IGClient.builder()
                 .username("natatalkova3")
                 .password("123456Aa")
-                .login();*/
+                .login();
+
         UsersSearchRequest usersSearchRequest = new UsersSearchRequest("kiraaa3945");
         System.out.println(usersSearchRequest.toString());
 
@@ -52,7 +55,7 @@ public class Main {
         System.out.println(feedUserRequest);
 
 
-/*        InstagramSearchUsernameResult userResult = client.sendRequest(
+        InstagramSearchUsernameResult userResult = client.sendRequest(
                 new InstagramSearchUsernameRequest("katy001122"));
         System.out.println(userResult.getUser().username);
 
@@ -60,12 +63,13 @@ public class Main {
         InstagramSearchUsernameResult userResult2 = client.sendRequest(
                 new InstagramSearchUsernameRequest("kiraaa3945"));
 
-       *//* // получение подписчиков
+
+ // получение подписчиков
         InstagramGetUserFollowersResult followersResult = client.sendRequest(
                 new InstagramGetUserFollowersRequest(userResult.getUser().getPk()));
         for (InstagramUserSummary user : followersResult.getUsers()) {
             System.out.println(user.full_name + " " + user.pk);
-        }*//*
+        }
 
         InstagramGetUserFollowersResult followersResult2 = client.sendRequest(
                 new InstagramGetUserFollowersRequest(userResult2.getUser().getPk()));
@@ -75,6 +79,8 @@ public class Main {
             i++;
             sleep(500);
             System.out.println(user.getUsername() + " " + i);
-        }*/
+        }
+
     }
 }
+*/
