@@ -25,8 +25,8 @@ public class Application {
         BasicConfigurator.configure(); // configure basic logging output
         Pair<String, String> pair = args.length >= 2 ? new Pair<>(args[0], args[1]) :
                                                         new Pair<>(login, password);
-        //IGClient client = login(pair.getFirst(), pair.getSecond());
-        IGClient client = twoFactorLogin(login, password);
+        IGClient client = login(pair.getFirst(), pair.getSecond());
+        //IGClient client = twoFactorLogin(login, password);
 
         System.out.printf("Logged into %s\n", client.getSelfProfile().getUsername());
         new Application(client).start();
@@ -126,6 +126,9 @@ public class Application {
     public static IGClient getLoggedInIGClient(String username, String password) throws IGLoginException {
         File serializedClient = new File("igclient.ser"),
                 serializedCookies = new File("igcookies.ser");
+
+       boolean serializedClientBool= serializedClient.exists();
+       boolean serializedCookiesBool = serializedCookies.exists();
 
         if (serializedClient.exists() && serializedCookies.exists()) {
             //System.out.println("Found existing serialized info.");

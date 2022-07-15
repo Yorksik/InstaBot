@@ -1,3 +1,4 @@
+/*
 package com.IGBot;
 
 import com.github.instagram4j.instagram4j.IGClient;
@@ -43,6 +44,7 @@ public class Main {
         FeedUserRequest feedUserRequest = new FeedUserRequest(client.getSelfProfile().getPk());
         System.out.println(feedUserRequest);
 
+*/
 /*        InstagramSearchUsernameResult userResult = client.sendRequest(
                 new InstagramSearchUsernameRequest("katy001122"));
         System.out.println(userResult.getUser().username);
@@ -67,7 +69,9 @@ public class Main {
             i++;
             sleep(500);
             System.out.println(user.getUsername() + " " + i);
-        }*/
+        }*//*
+
 
     }
 }
+*/
